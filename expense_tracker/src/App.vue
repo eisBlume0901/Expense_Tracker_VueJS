@@ -36,6 +36,10 @@ const expenses = computed( () => {
       .reduce((acc, transaction) => (acc += Math.abs(transaction.amount)), 0)
       .toFixed(2)) //  setting two decimal places
 })
+
+const handleTransactionSubmitted = (transactionData) => {
+  console.log(transactionData);
+}
 </script>
 
 <template>
@@ -44,6 +48,6 @@ const expenses = computed( () => {
     <Balance :total="total" />
     <IncomeExpenses :income=income :expenses=expenses />
     <TransactionList :transactions="transactions" />
-    <AddTransaction />
+    <AddTransaction @transactionSubmitted="handleTransactionSubmitted"/>
   </div>
 </template>

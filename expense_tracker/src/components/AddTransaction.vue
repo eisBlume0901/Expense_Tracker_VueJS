@@ -1,12 +1,33 @@
 <script setup>
 
 import { ref } from 'vue'
+import { useToast } from 'vue-toastification'
 
 const text = ref('')
 const amount = ref('')
-
+const emit = defineEmits(['transactionSubmitted'])
+// emit allows a child component (AddTransaction.vue) to communicate with its parent component (App.vue)
+// This mechanism enables the child component to send data to its parent component
+const toast = useToast()
 const onSubmit = () => {
-  console.log(text.value, amount.value)
+
+  if (!text.value || !amount.value) {
+    toast.error('Please add a text and amount')
+  }
+
+  const transactionData = {
+    text: text.value,
+    amount: parseFloat(amount.value),
+  }
+
+  emit('transactionSubmitted', transactionData); //
+
+  // clearing the input fields so that the user can add another transaction
+  text.value = ''
+  amount.value = ''
+
+
+
 }
 </script>
 <template>
