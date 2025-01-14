@@ -24,17 +24,17 @@ const total = computed(() => {
 })
 
 const income = computed( () => {
-  return transactions.value
+  return parseFloat(transactions.value
       .filter(transaction => transaction.amount > 0)
       .reduce((acc, transaction) => (acc += transaction.amount), 0)
-      .toFixed(2) //  setting two decimal places
+      .toFixed(2)) //  setting two decimal placees
 })
 
 const expenses = computed( () => {
-  return transactions.value
+  return parseFloat(transactions.value
       .filter(transaction => transaction.amount < 0)
       .reduce((acc, transaction) => (acc += Math.abs(transaction.amount)), 0)
-      .toFixed(2) //  setting two decimal places
+      .toFixed(2)) //  setting two decimal places
 })
 </script>
 
@@ -42,7 +42,7 @@ const expenses = computed( () => {
   <Header />
   <div class="container">
     <Balance :total="total" />
-    <IncomeExpenses :income="income" :expenses="expenses" />
+    <IncomeExpenses :income=income :expenses=expenses />
     <TransactionList :transactions="transactions" />
     <AddTransaction />
   </div>
